@@ -12,6 +12,11 @@ const createProduct = async (req,res) =>{
         //validations for name
         if(validator.validateString(name)) return res.status(400).send({status:false, message: `Name ${validator.validateString(name)}`})
 
+        //validations for price
+        if(validator.validateNumber(price)) return res.status(400).send({status:false, message: `Price ${validator.validateNumber(price)}`})
+        if(price===0) return res.status(400).send({status:false, message:"price can't be 0"})
+
+
         let createdProduct = await productModel.create(productData)
 
         return res.status(201).send({status:true, message:"Created", data: createdProduct})

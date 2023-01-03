@@ -2,7 +2,6 @@ const { default: mongoose } = require("mongoose")
 const customerModel = require("../Models/customerModel")
 const orderModel = require("../Models/orderModel")
 const productModel = require("../Models/productModel")
-const validator = require("../Validator/validator")
 
 const createOrder = async (req,res)=>{
     try {
