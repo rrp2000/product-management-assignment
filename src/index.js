@@ -9,6 +9,7 @@ app.use(bodyParser.json())
 app.use(cors())
 app.use("/",router)
 
+mongoose.set('strictQuery', true)
 mongoose.connect("mongodb+srv://spacespider:admin@cluster0.0ps1ymn.mongodb.net/product-management-assignment").then(()=>{
     console.log("Mongodb connected...")
     app.listen(4000,()=>{
