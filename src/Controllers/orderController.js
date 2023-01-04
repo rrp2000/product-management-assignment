@@ -24,17 +24,32 @@ const createOrder = async (req,res)=>{
         let updates = {}
         updates.$set = {totalOrders : customer.totalOrders+1}
         
+        if(updates.$set.totalOrders<10){
+            console.log(`"You have placed ${updates.$set.totalOrders} orders with us. Buy ${10-updates.$set.totalOrders} more stuff and you will be
+            promoted to Gold customer and enjoy 10% discounts!`)
+        }
+        if(updates.$set.totalOrders==10){
+            console.log(`"You have placed ${updates.$set.totalOrders} orders with us. You are a Gold Member now. You can enjoy 10% discounts from now on!`)
+        }
         
         if(updates.$set.totalOrders>10){
             updates.$set.type = "Gold"
+            orderData.discount = 10
             orderData.price-= (orderData.price/100)*10
+        }
+
+        if(updates.$set.totalOrders>10 && updates.$set.totalOrders<20){
+            console.log(`"You have placed ${updates.$set.totalOrders} orders with us. Buy ${20-updates.$set.totalOrders} more stuff and you will be
+            promoted to Platinum customer and enjoy 20% discounts!`)
+        }
+        if(updates.$set.totalOrders==20){
+            console.log(`"You have placed ${updates.$set.totalOrders} orders with us. You are a Platinum Member now. You can enjoy 20% discounts from now on!`)
         }
         if(updates.$set.totalOrders>20){
             updates.$set.type = "Platinum"
+            orderData.discount = 20
             orderData.price-= (orderData.price/100)*20
         }
-        console.log(updates)
-        console.log(orderData)
 
         let order = await orderModel.create(orderData)
         console.log(await customerModel.findOneAndUpdate({_id:customerId},updates,{new:true}))

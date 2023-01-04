@@ -44,6 +44,7 @@ const createCustomer = async (req,res)=>{
         //validations for password
         if(validator.validateString(password)) return res.status(400).send({status:false, message: `Password ${validator.validateString(password)}`})
         
+        0
         let customer = await customerModel.create(customerData)
 
         return res.status(201).send({status:true, message:"created", data: customer})
